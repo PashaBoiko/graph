@@ -62,7 +62,7 @@ export default {
 
       graph = this.buildGraph(graph);
 
-      //var layout = new Layout(graph)
+      var layout = new Layout(graph)
       var renderer = new Renderer('#graph', graph, 800, 400)
       renderer.draw();
     },
