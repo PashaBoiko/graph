@@ -25,9 +25,10 @@ export default {
 
   data(){
     return {
-      data: '{ "0": [0,10,0,0,0,30], "1": [10,0,4,0,0,20],"2": [0,4,0,40,60,0],"3": [0,0,40,0,50,0],"4": [0,0,60,50,0,5],"5": [30,20,0,0,5,0]}',
+      data: '{ "0": [0,2,0,1], "1": [2,0,30,0], "2": [0,30,0,40], "3": [1,0,40,0]}',
       g: [],
       minCut: null,
+      edges: [],
     }
   },
 
@@ -43,8 +44,11 @@ export default {
 
       try{
         if(_.isObject(this.g) && !_.isEmpty(this.g)){
+          var result = minCut(_.cloneDeep(this.g));
+          this.minCut = result.best;
+          this.edges = result.edges;
+
           this.renderGraph();
-          this.minCut = minCut(this.g);
         }  
       }
       catch(e){ console.log(e) }
@@ -74,8 +78,13 @@ export default {
       for(i = 0; i < this.g.length; i++){
         for(j = 0; j < this.g.length; j++){
           if(this.g[i][j] != 0){
+
+            var edgeColor = (!_.includes(this.edges, this.g[i][j])) ? '#000' : '#f00';
+
             graph.addEdge(i+1,j+1,{
-              label: this.g[i][j]
+              label: this.g[i][j],
+              fill: edgeColor,
+              stroke: '#fff'
             })
           }    
         }
