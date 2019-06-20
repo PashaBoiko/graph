@@ -25,6 +25,7 @@ export default {
 
   data(){
     return {
+      // initial value
       data: '{ "0": [0,2,0,1], "1": [2,0,30,0], "2": [0,30,0,40], "3": [1,0,40,0]}',
       g: [],
       minCut: null,
@@ -32,22 +33,25 @@ export default {
     }
   },
 
-  mounted(){
-   
-  },
-
   methods: {
 
     build(){
 
+      // get array from textarea field
       this.g = _.toArray(JSON.parse(this.data));
 
       try{
         if(_.isObject(this.g) && !_.isEmpty(this.g)){
+          //run algoritm Stor-Wagner
           var result = minCut(_.cloneDeep(this.g));
+
+          // get bet weight of the graph
           this.minCut = result.best;
+
+          //get edges for mappling incision
           this.edges = result.edges;
 
+          // function for rendering graph
           this.renderGraph();
         }  
       }
@@ -55,9 +59,8 @@ export default {
     },
 
     renderGraph(){
-
+      // clear old graph
       document.getElementById('graph').innerHTML = '';
-
       var Graph = Dracula.Graph
       var Renderer = Dracula.Renderer.Raphael
       var Layout = Dracula.Layout.Spring
@@ -74,6 +77,8 @@ export default {
     buildGraph(graph){
 
       var i, j;
+
+      // render graph by initial matrix
 
       for(i = 0; i < this.g.length; i++){
         for(j = 0; j < this.g.length; j++){
