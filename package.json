@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "graphdracula": "^1.2.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "raphael": "^2.2.8",
     "vue": "^2.6.10"
   },
